@@ -26,6 +26,7 @@ import com.manet.deshatan.dataModels.Game;
 import com.manet.deshatan.dataModels.Player;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.TestOnly;
 
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 Log.d("DataSnapshot "," : "+snapshot.toString());
                 gameObj = snapshot.getValue(Game.class);
-                Toast.makeText(getApplicationContext(),""+gameObj.getOwner()+" = = "+gameObj.getPlayers().get(0).getUserName() + " == "+ gameObj.getPlayers().get(0).getBalance(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),""+gameObj.getOwner()+" = = "+gameObj.getPlayers().get(0).getUserName() + " == "+ gameObj.getPlayers().get(0).getBalance(),Toast.LENGTH_LONG).show();
                 if(constants.id.equals("-1"))
                 {
                     setID();
@@ -114,11 +115,11 @@ public class GameActivity extends AppCompatActivity {
 
                     if(isOwned(nextPos))
                     {
-                        showOwnedDialogBox();
+                        showOwnedDialogBox(String.valueOf(nextPos));
                     }
                     else
                     {
-                        showNotOwnedDialogBox();
+                        showNotOwnedDialogBox(String.valueOf(nextPos));
                     }
                 }
                 else
@@ -187,7 +188,7 @@ public class GameActivity extends AppCompatActivity {
         }
         return true;
     }
-    void showNotOwnedDialogBox(){
+    void showNotOwnedDialogBox(String pos){
         ViewGroup viewGroup = findViewById(android.R.id.content);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.not_owned_dialog_box, viewGroup, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -195,10 +196,14 @@ public class GameActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
+        TextView textView = dialogView.findViewById(R.id.place);
+        textView.setText(constants.cityMap.get(pos));
         dialogView.findViewById(R.id.buy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Clicked buy",Toast.LENGTH_LONG).show();
+                BUY(pos);
+                Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance());
                 alertDialog.dismiss();
             }
         });
@@ -206,25 +211,67 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Clicked leave",Toast.LENGTH_LONG).show();
+                LEAVE(pos);
                 alertDialog.dismiss();
             }
         });
     }
-    void showOwnedDialogBox(){
+    void showOwnedDialogBox(String pos){
         ViewGroup viewGroup = findViewById(android.R.id.content);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.owned_dialog_box, viewGroup, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
-        alertDialog.show();
 
+        alertDialog.show();
+        TextView textView = dialogView.findViewById(R.id.place);
+        textView.setText(constants.cityMap.get(pos));
         dialogView.findViewById(R.id.payrent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Clicked payrent",Toast.LENGTH_LONG).show();
+                PAYRENT(pos);
                 alertDialog.dismiss();
             }
         });
 
+    }
+    void BUY(String pos){
+        if(Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) >= Integer.valueOf(constants.priceMap.get(pos)))
+        {
+            gameObj.getPlayers().get(Integer.valueOf(constants.id)).setBalance(String.valueOf( Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) - Integer.valueOf(constants.priceMap.get(pos)) ));
+            gameObj.getPlayers().get(Integer.valueOf(constants.id)).setCurPos(pos);
+            gameObj.getPlayers().get(Integer.valueOf(constants.id)).getMonuments().add(constants.cityMap.get(pos));
+            gameObj.setTurn(String.valueOf(((Integer.valueOf( gameObj.getTurn() ) )+1) % gameObj.getPlayers().size()) );
+            gameObj.getMonuments().put(constants.cityMap.get(pos),constants.id);
+
+            gameRef.setValue(gameObj);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"You dont have enough balance", Toast.LENGTH_SHORT).show();
+            LEAVE(pos);
+        }
+    }
+    void LEAVE(String pos){
+        gameObj.setTurn(String.valueOf(((Integer.valueOf( gameObj.getTurn() ) )+1) % gameObj.getPlayers().size()) );
+    }
+    void PAYRENT(String pos){
+        if( Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) >=  Integer.valueOf(constants.priceMap.get(pos)) )
+        {
+            String cityName = constants.cityMap.get(String.valueOf(pos));
+            String ownerID = gameObj.getMonuments().get(cityName);
+            String ownerBal = gameObj.getPlayers().get(Integer.valueOf(ownerID)).getBalance();
+            gameObj.getPlayers().get(Integer.valueOf(ownerID)).setBalance(String.valueOf( Integer.valueOf(constants.priceMap.get(pos)) + Integer.valueOf(ownerBal) ));
+            gameObj.getPlayers().get(Integer.valueOf(constants.id)).setBalance(String.valueOf( Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) - Integer.valueOf(constants.priceMap.get(pos)) ));
+            gameObj.setTurn(String.valueOf(((Integer.valueOf( gameObj.getTurn() ) )+1) % gameObj.getPlayers().size()) );
+
+            gameRef.setValue(gameObj);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"you are out of game! ",Toast.LENGTH_SHORT).show();
+            //I dont know
+        }
     }
 }
