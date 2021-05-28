@@ -76,6 +76,7 @@ public class CreateRoomFrag extends Fragment {
         Game game = new Game(players , constants.userName,"0");
         gameRef.child(constants.UniversalRoomNumber).setValue(game);
         constants.id = "0";
+//        Log.d("============= ; ",game.getMonuments().get("xyz"));
 
     }
 }

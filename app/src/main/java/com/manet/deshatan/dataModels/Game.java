@@ -13,7 +13,28 @@ public class Game {
         return startGame;
     }
 
+    public HashMap<String, String> getMonuments() {
+        return monuments;
+    }
+
     public Game(ArrayList<Player> players, String owner, String turn) {
+        monuments = new HashMap<>();
+        monuments.put("Qutub Minar Delhi","available");
+        monuments.put("Taj Mahal Agra","available");
+        monuments.put("Hawa Mahal Jaipur Rajasthan","available");
+        monuments.put("India Gate Delhi","available");
+        monuments.put("Murudeshwar Temple Karnataka","available");
+        monuments.put("City Palace Udaipur, Rajasthan","available");
+        monuments.put("Bahai Temple (Lotus Temple), New Delhi","available");
+        monuments.put("Mysore Palace, Mysore Karnataka","available");
+        monuments.put("Gateway of India Mumbai Maharashtra","available");
+        monuments.put("Konark temple Odisha","available");
+        monuments.put("RED Fort Delhi","available");
+        monuments.put("Charminar Hyderabad Telangana","available");
+        monuments.put("Golden Temple Amritsar","available");
+        monuments.put("Ajanta elora caves aurangabad","available");
+        monuments.put("Jama Masjid, Delhi","available");
+        monuments.put("Basilica of Bom Jesus","available");
         this.startGame = false;
         this.players = players;
         this.owner = owner;
