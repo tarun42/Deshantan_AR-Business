@@ -1,11 +1,13 @@
 package com.manet.deshatan.dataModels;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
     ArrayList<Player> players;
     String owner,turn;
     Boolean startGame;
+    HashMap<String,String> monuments;
 
     public Boolean getStartGame() {
         return startGame;

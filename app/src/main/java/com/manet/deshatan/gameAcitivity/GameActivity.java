@@ -106,6 +106,17 @@ public class GameActivity extends AppCompatActivity {
                 if(gameObj.getTurn().equals(constants.id))
                 {
                     Toast.makeText(getApplicationContext(),"its your turn ",Toast.LENGTH_SHORT).show();
+                    int rand = ((int)(Math.random()*100))%6 + 1;
+                    int nextPos = (Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getCurPos()) + rand)%16 ;
+
+                    if(isOwned(nextPos))
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
                 }
                 else
                 {
@@ -116,8 +127,7 @@ public class GameActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "MY ID IS : "+constants.id, Toast.LENGTH_SHORT).show();
     }
 
-    void setStatus()
-    {
+    void setStatus() {
         if(gameObj.getTurn().equals(constants.id))
         {
             status.setText("Your turn to play....");
@@ -165,5 +175,9 @@ public class GameActivity extends AppCompatActivity {
                 constants.id= String.valueOf(i);
             }
         }
+    }
+    boolean isOwned(int pos)
+    {
+        return true;
     }
 }
