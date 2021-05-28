@@ -3,6 +3,26 @@ package com.manet.deshatan.dataModels;
 import java.util.ArrayList;
 
 public class Player {
+    public void setBalance(String balance) {
+        this.balance = balance;
+    }
+
+    public void setCurPos(String curPos) {
+        this.curPos = curPos;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setMonuments(ArrayList<String> monuments) {
+        this.monuments = monuments;
+    }
+
     String balance,curPos, userName,id;
     ArrayList<String> monuments;
 

@@ -73,8 +73,9 @@ public class CreateRoomFrag extends Fragment {
         Player player =  new Player("10000","0",constants.userName,"1",monumnets);
         ArrayList<Player> players = new ArrayList<>();
         players.add(player);
-        Game game = new Game(players , constants.userName,"1");
+        Game game = new Game(players , constants.userName,"0");
         gameRef.child(constants.UniversalRoomNumber).setValue(game);
+        constants.id = "0";
 
     }
 }

@@ -5,11 +5,33 @@ import java.util.ArrayList;
 public class Game {
     ArrayList<Player> players;
     String owner,turn;
+    Boolean startGame;
+
+    public Boolean getStartGame() {
+        return startGame;
+    }
 
     public Game(ArrayList<Player> players, String owner, String turn) {
+        this.startGame = false;
         this.players = players;
         this.owner = owner;
         this.turn = turn;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setTurn(String turn) {
+        this.turn = turn;
+    }
+
+    public void setStartGame(Boolean startGame) {
+        this.startGame = startGame;
     }
 
     public Game() {
