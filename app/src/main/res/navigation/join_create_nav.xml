@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/join_create_nav"
+    app:startDestination="@id/joinCreateFrag">
+
+    <fragment
+        android:id="@+id/joinCreateFrag"
+        android:name="com.manet.deshatan.mainActivity.JoinCreateFrag"
+        android:label="fragment_join_create"
+        tools:layout="@layout/fragment_join_create" >
+        <action
+            android:id="@+id/action_joinCreateFrag_to_joinRoomFrag"
+            app:destination="@id/joinRoomFrag" />
+        <action
+            android:id="@+id/action_joinCreateFrag_to_createRoomFrag"
+            app:destination="@id/createRoomFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinRoomFrag"
+        android:name="com.manet.deshatan.mainActivity.JoinRoomFrag"
+        android:label="fragment_join_room"
+        tools:layout="@layout/fragment_join_room" />
+    <fragment
+        android:id="@+id/createRoomFrag"
+        android:name="com.manet.deshatan.mainActivity.CreateRoomFrag"
+        android:label="fragment_create_room"
+        tools:layout="@layout/fragment_create_room" />
+</navigation>

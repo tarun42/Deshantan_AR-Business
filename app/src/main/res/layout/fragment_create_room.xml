@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainActivity.CreateRoomFrag">
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/createRoomNumber"
+            android:layout_gravity="center"
+            android:layout_above="@id/copy"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="50dp"
+            android:text="                 "
+            ></TextView>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/copy"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+
+            android:text="COPY"
+            ></Button>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/next"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:padding="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+
+            android:text="NEXT"
+            ></Button>
+    </RelativeLayout>
+
+
+</FrameLayout>

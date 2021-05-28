@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "332570846532",
+    "firebase_url": "https://js-fire-32cdc-default-rtdb.firebaseio.com",
+    "project_id": "js-fire-32cdc",
+    "storage_bucket": "js-fire-32cdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332570846532:android:05f4a0093699c412596311",
+        "android_client_info": {
+          "package_name": "com.manet.deshatan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332570846532-73ejt4lpgbj48g66usnpbvhn6i5aai10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp8NHC3lmB1vRnizbtMKHSg7RpKBrpLI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332570846532-73ejt4lpgbj48g66usnpbvhn6i5aai10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
