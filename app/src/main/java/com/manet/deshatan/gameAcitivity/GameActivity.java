@@ -1,11 +1,14 @@
 package com.manet.deshatan.gameAcitivity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -111,11 +114,11 @@ public class GameActivity extends AppCompatActivity {
 
                     if(isOwned(nextPos))
                     {
-
+                        showOwnedDialogBox();
                     }
                     else
                     {
-
+                        showNotOwnedDialogBox();
                     }
                 }
                 else
@@ -176,8 +179,52 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
-    boolean isOwned(int pos)
-    {
+    boolean isOwned(int pos) {
+        String cityName = constants.cityMap.get(String.valueOf(pos));
+        if(gameObj.getMonuments().get(cityName).equals("available") )
+        {
+            return false;
+        }
         return true;
+    }
+    void showNotOwnedDialogBox(){
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.not_owned_dialog_box, viewGroup, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        dialogView.findViewById(R.id.buy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Clicked buy",Toast.LENGTH_LONG).show();
+                alertDialog.dismiss();
+            }
+        });
+        dialogView.findViewById(R.id.leave).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Clicked leave",Toast.LENGTH_LONG).show();
+                alertDialog.dismiss();
+            }
+        });
+    }
+    void showOwnedDialogBox(){
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.owned_dialog_box, viewGroup, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        dialogView.findViewById(R.id.payrent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Clicked payrent",Toast.LENGTH_LONG).show();
+                alertDialog.dismiss();
+            }
+        });
+
     }
 }
