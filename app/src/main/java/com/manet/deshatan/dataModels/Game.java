@@ -5,20 +5,13 @@ import java.util.HashMap;
 
 public class Game {
     ArrayList<Player> players;
-    String owner,turn;
+    String owner,turn,action;
     Boolean startGame;
     HashMap<String,String> monuments;
 
-    public Boolean getStartGame() {
-        return startGame;
-    }
-
-    public HashMap<String, String> getMonuments() {
-        return monuments;
-    }
-
     public Game(ArrayList<Player> players, String owner, String turn) {
         monuments = new HashMap<>();
+        action = "ABOUT TO START GAME";
         monuments.put("Qutub Minar Delhi","available");
         monuments.put("Taj Mahal Agra","available");
         monuments.put("Hawa Mahal Jaipur Rajasthan","available");
@@ -39,6 +32,26 @@ public class Game {
         this.players = players;
         this.owner = owner;
         this.turn = turn;
+    }
+
+    public Boolean getStartGame() {
+        return startGame;
+    }
+
+    public HashMap<String, String> getMonuments() {
+        return monuments;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public void setMonuments(HashMap<String, String> monuments) {
+        this.monuments = monuments;
     }
 
     public void setPlayers(ArrayList<Player> players) {

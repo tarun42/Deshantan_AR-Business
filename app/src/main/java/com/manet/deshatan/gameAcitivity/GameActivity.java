@@ -1,9 +1,10 @@
-package com.manet.deshatan.gameAcitivity;
+                                                                                                                                                                                        package com.manet.deshatan.gameAcitivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,10 +21,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.manet.deshatan.BackgroundMusicService;
 import com.manet.deshatan.R;
 import com.manet.deshatan.constants;
 import com.manet.deshatan.dataModels.Game;
 import com.manet.deshatan.dataModels.Player;
+import com.manet.deshatan.mainActivity.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.TestOnly;
@@ -36,10 +39,24 @@ public class GameActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference gameRef;
     Game gameObj;
-//    ListView listView;
     GridView gridView;
     Button start,dice,map;
     TextView status,action;
+    Intent intent;
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopService(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startService(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +70,9 @@ public class GameActivity extends AppCompatActivity {
         gridView = findViewById(R.id.listview);
         database = FirebaseDatabase.getInstance();
         gameRef = database.getReference("game").child(constants.UniversalRoomNumber);
+
+        intent = new Intent(GameActivity.this, BackgroundMusicService.class);
+        startService(intent);
 
         gameRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -78,14 +98,13 @@ public class GameActivity extends AppCompatActivity {
                 if(gameObj.getStartGame())
                 {
                     setStatus();
-//                    setAction();
                 }
                 PlayerList playersAdapter = new PlayerList(GameActivity.this, gameObj.getPlayers());
                 //attaching adapter to the listview
                 gridView.setAdapter(playersAdapter);
+                action.setText(gameObj.getAction());
 
             }
-
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
@@ -96,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 gameObj.setStartGame(true);
+                gameObj.setAction("STARTED");
                 gameRef.setValue(gameObj);
                 Log.d(TAG,"NOW START SHOUULD BE INVISIBLE");
                 start.setVisibility(View.GONE);
@@ -244,6 +264,7 @@ public class GameActivity extends AppCompatActivity {
             gameObj.getPlayers().get(Integer.valueOf(constants.id)).getMonuments().add(constants.cityMap.get(pos));
             gameObj.setTurn(String.valueOf(((Integer.valueOf( gameObj.getTurn() ) )+1) % gameObj.getPlayers().size()) );
             gameObj.getMonuments().put(constants.cityMap.get(pos),constants.id);
+            gameObj.setAction(constants.userName+" has bought "+constants.cityMap.get(pos));
 
             gameRef.setValue(gameObj);
         }
@@ -255,6 +276,9 @@ public class GameActivity extends AppCompatActivity {
     }
     void LEAVE(String pos){
         gameObj.setTurn(String.valueOf(((Integer.valueOf( gameObj.getTurn() ) )+1) % gameObj.getPlayers().size()) );
+        gameObj.setAction(constants.userName + " has decided to leave");
+
+        gameRef.setValue(gameObj);
     }
     void PAYRENT(String pos){
         if( Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) >=  Integer.valueOf(constants.priceMap.get(pos)) )
@@ -265,12 +289,15 @@ public class GameActivity extends AppCompatActivity {
             gameObj.getPlayers().get(Integer.valueOf(ownerID)).setBalance(String.valueOf( Integer.valueOf(constants.priceMap.get(pos)) + Integer.valueOf(ownerBal) ));
             gameObj.getPlayers().get(Integer.valueOf(constants.id)).setBalance(String.valueOf( Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) - Integer.valueOf(constants.priceMap.get(pos)) ));
             gameObj.setTurn(String.valueOf(((Integer.valueOf( gameObj.getTurn() ) )+1) % gameObj.getPlayers().size()) );
+            gameObj.setAction(constants.userName + " has paid rent for "+ constants.cityMap.get(pos));
 
             gameRef.setValue(gameObj);
         }
         else
         {
             Toast.makeText(getApplicationContext(),"you are out of game! ",Toast.LENGTH_SHORT).show();
+            gameObj.setAction(constants.userName + "out of money to pay rent!.");
+            gameRef.setValue(gameObj);
             //I dont know
         }
     }

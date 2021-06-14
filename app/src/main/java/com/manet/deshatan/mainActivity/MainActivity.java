@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference gameRef;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +29,23 @@ public class MainActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         gameRef = database.getReference("temp");
-        Intent intent = new Intent(MainActivity.this, BackgroundMusicService.class);
+        intent = new Intent(MainActivity.this, BackgroundMusicService.class);
+        startService(intent);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopService(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         startService(intent);
     }
+
     public void PlayBackgroundSound(View view) {
 
     }
