@@ -1,5 +1,8 @@
 package com.manet.deshatan.mainActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,10 +27,13 @@ import com.manet.deshatan.gameAcitivity.GameActivity;
 
 import java.util.ArrayList;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
+
 
 public class CreateRoomFrag extends Fragment {
     TextView roomNumber;
-    Button create,next;
+    Button create,next,copy;
     FirebaseDatabase database;
     DatabaseReference gameRef;
     DatabaseReference roomRef;
@@ -45,6 +52,7 @@ public class CreateRoomFrag extends Fragment {
         roomNumber = view.findViewById(R.id.createRoomNumber);
         create = view.findViewById(R.id.joinbtn);
         next = view.findViewById(R.id.next);
+        copy = view.findViewById(R.id.copy);
 
         database = FirebaseDatabase.getInstance();
         gameRef = database.getReference("game");
@@ -60,6 +68,15 @@ public class CreateRoomFrag extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), GameActivity.class));
+            }
+        });
+
+        copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                clipboard.setText(roomNumber.getText().toString());
+                Toast.makeText(getContext(),"Copied",Toast.LENGTH_SHORT).show();
             }
         });
 

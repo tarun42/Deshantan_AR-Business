@@ -27,6 +27,7 @@ import com.manet.deshatan.constants;
 import com.manet.deshatan.dataModels.Game;
 import com.manet.deshatan.dataModels.Player;
 import com.manet.deshatan.mainActivity.MainActivity;
+import com.manet.deshatan.mapActivity.MapActivity;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.TestOnly;
@@ -55,6 +56,18 @@ public class GameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startService(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startService(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopService(intent);
     }
 
     @Override
@@ -124,6 +137,12 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GameActivity.this, MapActivity.class));
+            }
+        });
         dice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -277,6 +296,7 @@ public class GameActivity extends AppCompatActivity {
     void LEAVE(String pos){
         gameObj.setTurn(String.valueOf(((Integer.valueOf( gameObj.getTurn() ) )+1) % gameObj.getPlayers().size()) );
         gameObj.setAction(constants.userName + " has decided to leave");
+        gameObj.getPlayers().get(Integer.valueOf(constants.id)).setCurPos(pos);
 
         gameRef.setValue(gameObj);
     }
@@ -290,6 +310,7 @@ public class GameActivity extends AppCompatActivity {
             gameObj.getPlayers().get(Integer.valueOf(constants.id)).setBalance(String.valueOf( Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) - Integer.valueOf(constants.priceMap.get(pos)) ));
             gameObj.setTurn(String.valueOf(((Integer.valueOf( gameObj.getTurn() ) )+1) % gameObj.getPlayers().size()) );
             gameObj.setAction(constants.userName + " has paid rent for "+ constants.cityMap.get(pos));
+            gameObj.getPlayers().get(Integer.valueOf(constants.id)).setCurPos(pos);
 
             gameRef.setValue(gameObj);
         }

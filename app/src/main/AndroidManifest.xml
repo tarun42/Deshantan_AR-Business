@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.manet.deshatan">
 
     <application
@@ -8,8 +9,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Deshatan">
-        <activity android:name=".gameAcitivity.GameActivity"></activity>
+        android:theme="@style/Theme.Deshatan"
+        tools:replace="android:icon,android:theme">
+        <activity android:name=".mapActivity.MapActivity"></activity>
+        <activity android:name=".gameAcitivity.GameActivity" />
         <activity android:name=".mainActivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,6 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name=".BackgroundMusicService" />
     </application>
 
