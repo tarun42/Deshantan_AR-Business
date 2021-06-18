@@ -40,8 +40,9 @@ public class GameActivity extends AppCompatActivity {
     DatabaseReference gameRef;
     Game gameObj;
     GridView gridView;
-    Button start,dice,map;
-    TextView status,action;
+    Button start,dice,map,,option1Btn, option2Btn,option3Btn,option4Btn;
+    TextView status,action,questionTV;
+    Random random;
     Intent intent;
 
 
@@ -70,6 +71,7 @@ public class GameActivity extends AppCompatActivity {
         gridView = findViewById(R.id.listview);
         database = FirebaseDatabase.getInstance();
         gameRef = database.getReference("game").child(constants.UniversalRoomNumber);
+        random = new Random();
 
         intent = new Intent(GameActivity.this, BackgroundMusicService.class);
         startService(intent);
@@ -131,9 +133,13 @@ public class GameActivity extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(),"its your turn ",Toast.LENGTH_SHORT).show();
                     int rand = ((int)(Math.random()*100))%6 + 1;
-                    int nextPos = (Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getCurPos()) + rand)%16 ;
+                    int next = (Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getCurPos()) + rand);
+                    int nextPos = next % 16;
+                    if(next>=16){
+                        showBottomSheet(nextPos);
+                    }
 
-                    if(isOwned(nextPos))
+                    else if(isOwned(nextPos))
                     {
                         showOwnedDialogBox(String.valueOf(nextPos));
                     }
@@ -300,5 +306,124 @@ public class GameActivity extends AppCompatActivity {
             gameRef.setValue(gameObj);
             //I dont know
         }
+    }
+    private void getQuizQuestion(int question){
+        questionTV.setText(constants.questionsMap.get(question)[0]);
+        option1Btn.setText(constants.questionsMap.get(question)[1]);
+        option2Btn.setText(constants.questionsMap.get(question)[2]);
+        option3Btn.setText(constants.questionsMap.get(question)[3]);
+        option4Btn.setText(constants.questionsMap.get(question)[4]);
+    }
+    private  void showBottomSheet(int nextPos){
+
+
+        BottomSheetDialog bottomSheetDialog= new BottomSheetDialog(GameActivity.this);
+        View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.quiz_layout,(RelativeLayout)findViewById(R.id.quiz_id));
+        questionTV = bottomSheetView.findViewById(R.id.idTVQuestion);
+        option1Btn = bottomSheetView.findViewById(R.id.idBtnOption1);
+        option2Btn = bottomSheetView.findViewById(R.id.idBtnOption2);
+        option3Btn = bottomSheetView.findViewById(R.id.idBtnOption3);
+        option4Btn = bottomSheetView.findViewById(R.id.idBtnOption4);
+        question = random.nextInt(12);
+        getQuizQuestion(question);
+
+        option1Btn.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) {
+                if (constants.questionsMap.get(question)[5].trim().toLowerCase().equals(option1Btn.getText().toString().trim().toLowerCase())) {
+                    gameObj.getPlayers().get(Integer.valueOf(constants.id)).setBalance(String.valueOf(Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) + 200));
+                    gameRef.setValue(gameObj);
+                    Toast.makeText(getApplicationContext(), "Correct Answer", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Wrong Answer", Toast.LENGTH_SHORT).show();
+                }
+                bottomSheetDialog.dismiss();
+                if(isOwned(nextPos))
+                {
+                    showOwnedDialogBox(String.valueOf(nextPos));
+                }
+                else
+                {
+                    showNotOwnedDialogBox(String.valueOf(nextPos));
+                }
+            }
+        });
+
+        option2Btn.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) {
+                if (constants.questionsMap.get(question)[5].trim().toLowerCase().equals(option2Btn.getText().toString().trim().toLowerCase())) {
+                    gameObj.getPlayers().get(Integer.valueOf(constants.id)).setBalance(String.valueOf(Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) + 200));
+                    gameRef.setValue(gameObj);
+                    Toast.makeText(getApplicationContext(), "Correct Answer", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Wrong Answer", Toast.LENGTH_SHORT).show();
+                }
+                bottomSheetDialog.dismiss();
+                if(isOwned(nextPos))
+                {
+                    showOwnedDialogBox(String.valueOf(nextPos));
+                }
+                else
+                {
+                    showNotOwnedDialogBox(String.valueOf(nextPos));
+                }
+            }
+        });
+
+        option3Btn.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) {
+                if (constants.questionsMap.get(question)[5].trim().toLowerCase().equals(option3Btn.getText().toString().trim().toLowerCase())) {
+                    gameObj.getPlayers().get(Integer.valueOf(constants.id)).setBalance(String.valueOf(Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) + 200));
+                    gameRef.setValue(gameObj);
+                    Toast.makeText(getApplicationContext(), "Correct Answer", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Wrong Answer", Toast.LENGTH_SHORT).show();
+                }
+                bottomSheetDialog.dismiss();
+                if(isOwned(nextPos))
+                {
+                    showOwnedDialogBox(String.valueOf(nextPos));
+                }
+                else
+                {
+                    showNotOwnedDialogBox(String.valueOf(nextPos));
+                }
+            }
+        });
+
+        option4Btn.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) {
+                if (constants.questionsMap.get(question)[5].trim().toLowerCase().equals(option4Btn.getText().toString().trim().toLowerCase())) {
+                    gameObj.getPlayers().get(Integer.valueOf(constants.id)).setBalance(String.valueOf(Integer.valueOf(gameObj.getPlayers().get(Integer.valueOf(constants.id)).getBalance()) + 200));
+                    gameRef.setValue(gameObj);
+                    Toast.makeText(getApplicationContext(), "Correct Answer", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Wrong Answer", Toast.LENGTH_SHORT).show();
+                }
+                bottomSheetDialog.dismiss();
+                if(isOwned(nextPos))
+                {
+                    showOwnedDialogBox(String.valueOf(nextPos));
+                }
+                else
+                {
+                    showNotOwnedDialogBox(String.valueOf(nextPos));
+                }
+            }
+        });
+        bottomSheetDialog.setCancelable(false);
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
     }
 }
