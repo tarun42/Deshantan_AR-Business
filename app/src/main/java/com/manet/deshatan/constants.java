@@ -9,6 +9,7 @@ public class constants {
     public static String id = "-1";
     public static HashMap<String,String> cityMap = new HashMap<>();
     public static HashMap<String,String> priceMap = new HashMap<>();
+    public static HashMap<Integer, String[]> questionsMap = new HashMap<>();
     static {
         cityMap.put("0","Qutub Minar Delhi");
         cityMap.put("1","Taj Mahal Agra");
@@ -43,5 +44,19 @@ public class constants {
         priceMap.put("13","200");
         priceMap.put("14","300");
         priceMap.put("15","300");
+        
+        questionsMap.put(1, new String[]{"The Qutub Minar was dedicated to?", "A Sufi Saint", "The Emperor himself", "The Emperor's queen", "Achievements of the Emperor", "A Sufi Saint"});
+        questionsMap.put(2, new String[]{"The ______________ is the tallest minaret in India", "Taj Mahal", "Ashoka’s Pillar", "Qutb Minar", "Chand Minar", "Qutb Minar"});
+        questionsMap.put(3, new String[]{"________________ authorized the construction of Qutb Minar", "Qutb-ud-din", "Ashoka", "Sikandar Lodi", "Shah Jahan", "Qutb-ud-din"});
+        questionsMap.put(4, new String[]{"Qutub Minar was completed by", "Qutub-ud-din-Bakhtiyar", "Itlutmish", "Qutub-ud-din-Aibak", " Firuz Shah Tughlaq", "Itlutmish"});
+        questionsMap.put(5, new String[]{"Qutub Minar is built in the memory of", "Illtumish", "Qutbuddin Aibak", "Qutbuddin Bakthiyar", " None of the above", "Qutbuddin Bakthiyar"});
+        questionsMap.put(6, new String[]{"Qutub Minar is located in ___________", " New Delhi", " Hyderabad", "Secunderabad", "Maharashtra", " New Delhi"});
+        questionsMap.put(7, new String[]{"Where is located Qutub Shahi Tombs?", "Andhra Pradesh", "Hyderabad", "Delhi", "Uttar Pradesh", "Hyderabad"});
+        questionsMap.put(8, new String[]{"What is the English translation of Taj Mahal?", " Palaces of Princess", "Crown of Palaces", "Persian Palaces", "Palace of Rings", "Crown of Palaces"});
+        questionsMap.put(9, new String[]{"Who was the architect of Taj Mahal?", "Mumtaz Mahal", "Shah Jahan", "Yamuna", "Ustad Ahmad Lahauri", "Ustad Ahmad Lahauri"});
+        questionsMap.put(10, new String[]{"When was the Taj Mahal declared a winner of the New7Wonders of the World (2000–2007) initiative?", "2010", "2005", "2007", "2011", "2007"});
+        questionsMap.put(11, new String[]{"Where is the Taj Mahal located?", "Agra, India", "Delhi, India", "Rabindranath Tagore", "Mumbai, India", "Agra, India"});
+        questionsMap.put(12, new String[]{"Who was the Persian wife of the Mughal emperor whom the Taj Mahal was built for?", " Gauhara Begum", "Mumtaz Mahal", "Gur-e Amir", "Jama Masjid", "A Sufi Saint"});
+
     }
 }
