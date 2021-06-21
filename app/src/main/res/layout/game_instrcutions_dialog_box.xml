@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#2E2E2E"
+
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Game Instructions"
+            android:textAlignment="center"
+            android:fontFamily="@font/segoe_ui"
+            android:textSize="26dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="22dp"
+            android:textColor="@color/white"
+            >
+
+        </TextView>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="8"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Deshatan is an AR-based Multiplayer Mobile game that brings a new modernized approach to Tourism using Augmented Reality. \n\nFollow the steps to start playing\n\n1) Register yourself in the game\n2) Create/Join a room and share room link with your friends\n3) When in a room,  you can see an AR board with all the places available in the game\n4) Now, roll the dice and the corresponding Place would be shown in AR using a Virtual Train.\n5) Visit and roam around in that place using an Anywhere door entrance to the place.\n\n[ When you land on an unowned property you can buy that property from the Bank at its printed price. ]\n\n6) Finally, Buy and receive a Ticket for that place corresponding to a particular color.\n\n[ Every time any user visits a bought Place, he/she has to pay the rent to its Owner. The rent will double if the owner owns more than 3 places of similar color. ]\n\nIf a player runs out of Money, The is a facility of Bank in the Game. The player can either be granted a loan or can mortgage his property to the bank.\n\nYou are declared bankrupt if you owe more than you can pay to another player or the Bank.\n\nBank:
+The Bank pays salaries and bonuses. The Bank collects all taxes, fines, loans and interest, and the price of all properties which it sells and auctions.\n\nQuiz: Answer the questions correctly to receive monetary bonus.
+"
+                    android:fontFamily="@font/segoe_ui"
+                    android:textSize="15dp"
+                    android:textColor="@color/white"
+                    android:padding="16dp"
+
+                    >
+
+
+                </TextView>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_margin="18dp"
+
+
+
+
+
+            >
+            <Button
+                android:id="@+id/playNow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PLAY"
+                android:background="@drawable/rounded"
+                >
+
+            </Button>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
