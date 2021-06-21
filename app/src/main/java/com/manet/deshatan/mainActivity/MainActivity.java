@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ViewFlipper;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,13 +21,16 @@ import com.manet.deshatan.dataModels.temp;
 
 public class MainActivity extends AppCompatActivity {
 
+    ViewFlipper imgFlipper;
+
     FirebaseDatabase database;
     DatabaseReference gameRef;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_new);
+
 
         database = FirebaseDatabase.getInstance();
         gameRef = database.getReference("temp");
@@ -49,4 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public void PlayBackgroundSound(View view) {
 
     }
+
+
+
 }

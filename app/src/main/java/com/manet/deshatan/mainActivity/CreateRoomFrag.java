@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 
 
 public class CreateRoomFrag extends Fragment {
+    ViewFlipper imgFlipper;
     TextView roomNumber;
     Button create,next;
     FirebaseDatabase database;
@@ -41,7 +44,7 @@ public class CreateRoomFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view  = inflater.inflate(R.layout.fragment_create_room, container, false);
+        View view  = inflater.inflate(R.layout.fragment_create_room_new, container, false);
         roomNumber = view.findViewById(R.id.createRoomNumber);
         create = view.findViewById(R.id.joinbtn);
         next = view.findViewById(R.id.next);
@@ -49,6 +52,24 @@ public class CreateRoomFrag extends Fragment {
         database = FirebaseDatabase.getInstance();
         gameRef = database.getReference("game");
         roomRef = database.getReference("rooms");
+
+        int sliders[]={
+
+                R.drawable.hawa,
+                R.drawable.lotus,
+                R.drawable.india_gate,
+                R.drawable.jama,
+                R.drawable.golden
+
+
+        };
+        imgFlipper= view.findViewById(R.id.imgFlipper);
+        int i=0;
+        for(int slide:sliders){
+            i++;
+            sliderFlipper(slide,i);
+        }
+
 
         constants.UniversalRoomNumber = String.valueOf((int) (Math.random()*100000));
         Log.d("UniversalRoomNumber" ," :  "+constants.UniversalRoomNumber);
@@ -77,6 +98,20 @@ public class CreateRoomFrag extends Fragment {
         gameRef.child(constants.UniversalRoomNumber).setValue(game);
         constants.id = "0";
 //        Log.d("============= ; ",game.getMonuments().get("xyz"));
+
+    }
+
+    public void sliderFlipper(int image,int x){
+
+        ImageView imageView=new ImageView(getContext());
+        imageView.setBackgroundResource(image);
+
+        imgFlipper.addView(imageView);
+        imgFlipper.setFlipInterval(4000);
+        imgFlipper.setAutoStart(true);
+        imgFlipper.setInAnimation(getContext(),android.R.anim.fade_in);
+        imgFlipper.setOutAnimation(getContext(),android.R.anim.fade_out);
+
 
     }
 }

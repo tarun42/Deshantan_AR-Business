@@ -9,7 +9,7 @@
         android:id="@+id/joinCreateFrag"
         android:name="com.manet.deshatan.mainActivity.JoinCreateFrag"
         android:label="fragment_join_create"
-        tools:layout="@layout/fragment_join_create" >
+        tools:layout="@layout/fragment_join_create_new" >
         <action
             android:id="@+id/action_joinCreateFrag_to_joinRoomFrag"
             app:destination="@id/joinRoomFrag" />
@@ -21,10 +21,10 @@
         android:id="@+id/joinRoomFrag"
         android:name="com.manet.deshatan.mainActivity.JoinRoomFrag"
         android:label="fragment_join_room"
-        tools:layout="@layout/fragment_join_room" />
+        tools:layout="@layout/fragment_join_room_new" />
     <fragment
         android:id="@+id/createRoomFrag"
         android:name="com.manet.deshatan.mainActivity.CreateRoomFrag"
         android:label="fragment_create_room"
-        tools:layout="@layout/fragment_create_room" />
+        tools:layout="@layout/fragment_create_room_new" />
 </navigation>

@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,15 +34,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.TestOnly;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class GameActivity extends AppCompatActivity {
+                                                                                                                                                                                        public class GameActivity extends AppCompatActivity {
 
     String TAG = "GameActivity";
     FirebaseDatabase database;
     DatabaseReference gameRef;
     Game gameObj;
     GridView gridView;
-    Button start,dice,map,,option1Btn, option2Btn,option3Btn,option4Btn;
+    Button start,dice,map,option1Btn, option2Btn,option3Btn,option4Btn;
     TextView status,action,questionTV;
     Random random;
     Intent intent;
@@ -61,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_game_new);
 
         start = findViewById(R.id.start);
         map = findViewById(R.id.map);
@@ -324,7 +327,7 @@ public class GameActivity extends AppCompatActivity {
         option2Btn = bottomSheetView.findViewById(R.id.idBtnOption2);
         option3Btn = bottomSheetView.findViewById(R.id.idBtnOption3);
         option4Btn = bottomSheetView.findViewById(R.id.idBtnOption4);
-        question = random.nextInt(12);
+        int question = random.nextInt(12);
         getQuizQuestion(question);
 
         option1Btn.setOnClickListener(new View.OnClickListener() {
